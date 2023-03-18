@@ -50,10 +50,18 @@ func AddNewWinner(res http.ResponseWriter, req *http.Request) {
 			res.WriteHeader(http.StatusCreated)
 		}
 	}
-
 }
 
 // WinnersHandler is the dispatcher for all /winners URL
 func WinnersHandler(res http.ResponseWriter, req *http.Request) {
+
+	switch req.Method {
+	case http.MethodGet:
+		ListWinners(res, req)
+	case http.MethodPost:
+		AddNewWinner(res, req)
+	default:
+		res.WriteHeader(http.StatusMethodNotAllowed)
+	}
 
 }
